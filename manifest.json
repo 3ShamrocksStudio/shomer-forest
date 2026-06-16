@@ -1,0 +1,54 @@
+{
+  "name": "Shomer Forest — שומר היער · Citizens For Nature",
+  "short_name": "Shomer Forest",
+  "description": "Citizens guarding Israel's forests and wildlife. Live nature map, hazard reports (wildfire, dumping, injured wildlife, poaching), instant SOS, and a direct line to the authorities. By 3Shamrocks.Studio",
+  "start_url": "forest.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A1F13",
+  "theme_color": "#0A1F13",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "SOS Emergency",
+      "short_name": "SOS",
+      "description": "Trigger an immediate nature emergency alert",
+      "url": "forest.html?sos=true",
+      "icons": [
+        {
+          "src": "sos-icon-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Report Hazard",
+      "short_name": "Report",
+      "description": "Quickly report a wildfire, dumping, or injured wildlife",
+      "url": "forest.html#report",
+      "icons": [
+        {
+          "src": "report-icon-96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "categories": ["environment", "nature", "safety", "community"],
+  "lang": "he",
+  "dir": "rtl"
+}

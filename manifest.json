@@ -5,8 +5,8 @@
   "start_url": "forest.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0A1F13",
-  "theme_color": "#0A1F13",
+  "background_color": "#0A1628",
+  "theme_color": "#0A1628",
   "orientation": "portrait",
   "icons": [
     {
@@ -48,7 +48,12 @@
       ]
     }
   ],
-  "categories": ["environment", "nature", "safety", "community"],
+  "categories": [
+    "environment",
+    "nature",
+    "safety",
+    "community"
+  ],
   "lang": "he",
   "dir": "rtl"
 }

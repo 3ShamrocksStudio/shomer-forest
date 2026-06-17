@@ -214,6 +214,33 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
 .ss-x{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:var(--r8);padding:6px 13px;color:#fff;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;}
 .ss-x:hover{background:rgba(255,255,255,.28);}
 
+/* ══════════ SOS CANCEL COUNTDOWN + RESOLUTION OVERLAYS ══════════ */
+.sos-cd{position:fixed;inset:0;z-index:9700;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(6,15,30,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.sos-cd.on{display:flex;animation:cdfade .2s ease;}
+@keyframes cdfade{from{opacity:0}to{opacity:1}}
+.sos-cd-card{width:100%;max-width:360px;background:linear-gradient(180deg,rgba(30,16,22,.98),rgba(16,30,52,.98));border:1px solid var(--b4);border-radius:var(--r24);padding:26px 22px 22px;box-shadow:var(--e4),inset 0 1px 0 rgba(255,255,255,.05);text-align:center;}
+.sos-cd-ttl{font-size:22px;font-weight:900;color:#FF8089;letter-spacing:-.3px;line-height:1.15;}
+.sos-cd-sub{font-size:12.5px;color:var(--tx1);line-height:1.55;margin-top:8px;}
+.sos-cd-ringwrap{position:relative;width:150px;height:150px;margin:18px auto 16px;}
+.sos-cd-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--r4) 360deg, rgba(255,255,255,.10) 0deg);transition:background 1s linear;animation:cdpulse 1.1s ease-in-out infinite;}
+.sos-cd-ring::after{content:'';position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle at 38% 30%,#2A1018,#100A12);}
+@keyframes cdpulse{0%,100%{box-shadow:0 0 0 0 rgba(232,24,44,.0)}50%{box-shadow:0 0 36px 4px rgba(232,24,44,.4)}}
+.sos-cd-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:900;color:#fff;text-shadow:0 2px 14px rgba(232,24,44,.7);font-variant-numeric:tabular-nums;}
+.sos-cd-btn{width:100%;padding:18px;background:linear-gradient(135deg,#0E8840,#13A050);border-radius:var(--r16);color:#fff;font-size:18px;font-weight:900;letter-spacing:.3px;box-shadow:0 6px 26px rgba(14,136,64,.5);transition:all .12s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.sos-cd-btn:hover{filter:brightness(1.08);}
+.sos-cd-btn:active{transform:scale(.97);}
+.sos-cd-hint{font-size:11px;color:var(--tx2);line-height:1.5;margin-top:12px;}
+/* Resolution options */
+.sos-rs-opts{display:flex;flex-direction:column;gap:9px;margin-top:20px;}
+.sos-rs-opt{display:flex;align-items:center;gap:12px;width:100%;padding:15px 16px;background:var(--n3);border:1.5px solid var(--b2);border-radius:var(--r16);color:var(--tx0);font-size:15px;font-weight:700;text-align:start;transition:all .12s;}
+.sos-rs-opt:hover{background:var(--n4);border-color:var(--b3);}
+.sos-rs-opt:active{transform:scale(.98);}
+.sos-rs-opt.real{background:linear-gradient(100deg,rgba(232,34,52,.18),rgba(232,34,52,.04));border-color:rgba(232,34,52,.5);color:#FF8089;}
+.sos-rs-opt .rs-ic{font-size:22px;flex-shrink:0;}
+/* Hold-to-arm progress ring around the SOS button */
+.sos-hold-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:90px;height:90px;border-radius:50%;background:conic-gradient(var(--g3) 0deg, transparent 0deg);opacity:0;transition:opacity .15s;pointer-events:none;z-index:0;-webkit-mask:radial-gradient(circle, transparent 38px, #000 39px);mask:radial-gradient(circle, transparent 38px, #000 39px);}
+.sos-hold-ring.on{opacity:1;}
+
 /* DMS strip */
 .dms-strip{position:absolute;top:calc(var(--hdr-top,0px) + var(--hdr));left:0;right:0;z-index:585;background:var(--blu);padding:10px 14px;display:none;align-items:center;gap:10px;}
 .dms-strip.on{display:flex;}
@@ -573,7 +600,7 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
   <div class="ob-bg" aria-hidden="true"></div>
   <div class="ob-hero">
     <div class="ob-shieldwrap">
-      <img class="ob-logo" src="logo-512.png" alt="SHOMER" width="240" height="240">
+      <img class="ob-logo" src="logo-512.png" alt="Shomer Forest" width="240" height="240">
     </div>
     <div class="ob-sub" id="ob-tagline">Citizens For Nature · אזרחים למען הטבע</div>
     <!-- Language pick in onboarding -->
@@ -591,7 +618,7 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
   <!-- STEP 0: Registration -->
   <div class="ob-panel active" id="step0">
     <div class="ob-card">
-      <h3 id="ob-h0">יצירת חשבון שומר</h3>
+      <h3 id="ob-h0">יצירת חשבון שומר היער</h3>
       <p class="desc" id="ob-d0">מפת בטיחות חיה · SOS + אזעקה מיידית · עזרה הדדית</p>
       <div class="name-field-wrap">
         <input class="ob-f" id="ob-name" type="text" autocomplete="given-name" maxlength="40" placeholder="שם פרטי" aria-label="שם פרטי" style="margin-bottom:6px">
@@ -651,7 +678,7 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
         <span class="odn-ic" aria-hidden="true">🛡️</span>
         <span id="ob-defaults-txt"><strong>Shake-to-SOS</strong> פעיל · <strong>Dead Man's Switch</strong> כבוי. אפשר לשנות בכל עת בהגדרות.</span>
       </div>
-      <button class="ob-cta" onclick="obFinish()" id="ob-finish-btn">✓ <span id="ob-finish-t">כניסה לשומר</span></button>
+      <button class="ob-cta" onclick="obFinish()" id="ob-finish-btn"><span id="ob-finish-t">כניסה לשומר היער</span></button>
       <button class="ob-back" onclick="goStep(1)" id="ob-back2">← חזרה</button>
     </div>
   </div>
@@ -666,15 +693,15 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
 <!-- ═══════════════════════════════
      APP
 ═══════════════════════════════ -->
-<div id="app" role="application" aria-label="שומר">
+<div id="app" role="application" aria-label="שומר היער">
 
   <!-- REAL MAP — Leaflet + OpenStreetMap -->
   <div id="map-wrap" role="region" aria-label="מפת בטיחות חיה">
     <div id="map" role="application" aria-label="מפה אינטראקטיבית"></div>
     <!-- Data-source banner -->
     <div class="data-banner" id="data-banner">
-      <div class="data-banner-t" id="data-banner-t">סקירת בטיחות סטטיסטית</div>
-      <div class="data-banner-s" id="data-banner-s">מקור: הלמ"ס · משטרת ישראל (data.gov.il)</div>
+      <div class="data-banner-t" id="data-banner-t">סקירת יער ואזורי טבע</div>
+      <div class="data-banner-s" id="data-banner-s">מקור: קק"ל · רשות הטבע והגנים</div>
     </div>
     <!-- Legend -->
     <div class="map-legend collapsed" id="map-legend" aria-label="מקרא מפה">
@@ -688,7 +715,7 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
         <div class="leg"><div class="ldc" style="background:#6B32D8" aria-hidden="true"></div><span id="l5">ציד / אסור</span></div>
         <div class="leg"><div class="ldc" style="background:#0E8840" aria-hidden="true"></div><span id="l6">מפגע / עץ</span></div>
         <div class="leg"><div class="ldc" style="background:#2070E0;border-color:#fff" aria-hidden="true"></div><span id="l8">המיקום שלי</span></div>
-        <div class="legend-foot" id="legend-foot">צבעים = קטגוריה. סמני ערים = סקירה סטטיסטית מצרפית, לא אירוע ספציפי.</div>
+        <div class="legend-foot" id="legend-foot">צבעים = סוג מפגע. סמנים מקובצים = סקירת אזורי יער ושמורות, לא אירוע ספציפי.</div>
       </div>
     </div>
     <!-- Controls -->
@@ -751,7 +778,34 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
       <div class="ss-t" id="ss-t">🚨 SOS פעיל — אזעקה פועלת · מיקומך שותף</div>
       <div class="ss-s" id="ss-s">ממתין לתגובה...</div>
     </div>
-    <button class="ss-x" onclick="cancelSOS()" id="ss-cancel">בטל SOS</button>
+    <button class="ss-x" onclick="resolveSOS()" id="ss-cancel">✓ <span id="ss-cancel-lbl">אני בטוח/ה</span></button>
+  </div>
+
+  <!-- SOS CANCEL COUNTDOWN (pre-broadcast grace window) -->
+  <div class="sos-cd" id="sos-cd" role="alertdialog" aria-modal="true" aria-labelledby="sos-cd-ttl" aria-describedby="sos-cd-sub" aria-hidden="true">
+    <div class="sos-cd-card">
+      <div class="sos-cd-ttl" id="sos-cd-ttl">🚨 שולח SOS…</div>
+      <div class="sos-cd-sub" id="sos-cd-sub">האזעקה פועלת. שידור לשומרים בקרבתך בעוד…</div>
+      <div class="sos-cd-ringwrap" aria-hidden="true">
+        <div class="sos-cd-ring" id="sos-cd-ring"></div>
+        <div class="sos-cd-num" id="sos-cd-num">10</div>
+      </div>
+      <button class="sos-cd-btn" onclick="cancelCountdown()" id="sos-cd-cancel">אני בטוח/ה — בטל</button>
+      <div class="sos-cd-hint" id="sos-cd-hint">ביטול עכשיו = אזעקת שווא. שום דבר לא ישודר ולא יופיע במפה.</div>
+    </div>
+  </div>
+
+  <!-- SOS RESOLUTION — Real / Accidental / Test -->
+  <div class="sos-cd" id="sos-resolve" role="alertdialog" aria-modal="true" aria-labelledby="sos-rs-ttl" aria-hidden="true">
+    <div class="sos-cd-card">
+      <div class="sos-cd-ttl" id="sos-rs-ttl" style="background:linear-gradient(135deg,#E0A828,#F5C840);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">✓ ה-SOS הסתיים</div>
+      <div class="sos-cd-sub" id="sos-rs-sub">מה היה זה? נתון לבדיקות ובטעות יוסר מהמפה ולא ייראה לאחרים.</div>
+      <div class="sos-rs-opts">
+        <button class="sos-rs-opt real" onclick="resolveAs('real')"><span class="rs-ic" aria-hidden="true">🚨</span><span class="rs-nm" id="rs-real">אמיתי — שמור על המפה</span></button>
+        <button class="sos-rs-opt" onclick="resolveAs('accidental')"><span class="rs-ic" aria-hidden="true">🙈</span><span class="rs-nm" id="rs-acc">בטעות — הסר</span></button>
+        <button class="sos-rs-opt" onclick="resolveAs('test')"><span class="rs-ic" aria-hidden="true">🧪</span><span class="rs-nm" id="rs-test">בדיקה — הסר</span></button>
+      </div>
+    </div>
   </div>
 
   <!-- DMS STRIP -->
@@ -773,7 +827,8 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
     <div class="sos-wrap" role="group" aria-label="כפתור חירום SOS">
       <div class="sos-ring1" aria-hidden="true"></div>
       <div class="sos-ring2" aria-hidden="true"></div>
-      <button class="sos-btn" id="sos-btn" onclick="triggerSOS()" aria-label="שלח SOS חירום" aria-pressed="false">
+      <div class="sos-hold-ring" id="sos-hold-ring" aria-hidden="true"></div>
+      <button class="sos-btn" id="sos-btn" onclick="onSosTap()" aria-label="שלח SOS חירום" aria-pressed="false">
         <span class="sos-txt">SOS</span>
       </button>
       <span class="sos-sub" id="nav-sos">חירום מיידי</span>
@@ -957,6 +1012,27 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--tx3);margin-top:6px"><span>גבוהה</span><span>נמוכה</span></div>
         <button class="test-alarm-btn" style="margin-top:12px" onclick="simulateShake()" id="sim-shake-btn">📳 <span id="sim-shake-lbl">סימולציית ניעור (בדיקה)</span></button>
       </div>
+      <div class="sec-cap mb12" id="sos-safety-cap">בטיחות SOS</div>
+      <div class="sl-card">
+        <div class="vol-row"><span class="vol-lbl" id="sos-cd-lbl">חלון ביטול לפני שידור</span><span class="vol-val" id="sos-cd-val">10s</span></div>
+        <div class="sr-sb" id="sos-cd-sub" style="margin:-2px 0 10px;line-height:1.5">זמן לבטל אזעקת שווא לפני שה-SOS משודר. קצר יותר = למצבי סיכון גבוה.</div>
+        <div class="dms-intervals" id="sos-cd-presets" role="group" aria-label="SOS cancel window">
+          <div class="dms-iv" data-sec="5"  onclick="setSosCountdown(this,5)"  role="button" tabindex="0"><div class="dms-iv-n">5</div><div class="dms-iv-l">שניות</div></div>
+          <div class="dms-iv" data-sec="7"  onclick="setSosCountdown(this,7)"  role="button" tabindex="0"><div class="dms-iv-n">7</div><div class="dms-iv-l">שניות</div></div>
+          <div class="dms-iv sel" data-sec="10" onclick="setSosCountdown(this,10)" role="button" tabindex="0"><div class="dms-iv-n">10</div><div class="dms-iv-l">שניות</div></div>
+        </div>
+      </div>
+      <div class="set-grp">
+        <div class="set-row"><div class="sr-l"><div class="sr-ic">🔒</div><div><div class="sr-nm" id="hold-arm-lbl">החזק-לחימוש</div><div class="sr-sb" id="hold-arm-sub">לחיצה ארוכה 2 שניות — מונע חיוג בכיס</div></div></div><div class="tog" id="hold-arm-tog" onclick="toggleHoldArm(this)" role="switch"></div></div>
+      </div>
+      <div class="ai-grp set-grp">
+        <div class="ai-row"><span class="ai-l" id="sos-rate-lbl">SOS פעילים היום (הגבלה)</span><span class="ai-v" id="sos-rate-val">0/3</span></div>
+        <div class="ai-row"><span class="ai-l" id="sos-trust-lbl">ציון אמון (סימולציה)</span><span class="ai-v" id="sos-trust-val">70 · תקין</span></div>
+      </div>
+      <div class="sr-sb" id="sos-trust-sub" style="margin:-12px 2px 14px;line-height:1.5;font-size:10.5px;color:var(--tx3)">real 0 · accidental 0 · test 0 · false 0</div>
+      <div class="dms-notice" id="sos-safety-note" style="margin-bottom:18px">
+        <strong id="sos-safety-note-h">הערת כנות:</strong> <span id="sos-safety-note-b">שידור, הגבלת קצב ואמון מדומים מקומית בלבד באפליקציה זו (ללא שרת). מערכת אמיתית חייבת לאכוף אותם בצד-שרת.</span>
+      </div>
       <div class="sec-cap mb12" id="set-priv-lbl">פרטיות</div>
       <div class="set-grp">
         <div class="set-row"><div class="sr-l"><div class="sr-ic">📍</div><div><div class="sr-nm">שיתוף מיקום ברקע</div><div class="sr-sb">נדרש ל-SOS ו-DMS</div></div></div><div class="tog on" data-skey="p_bgloc" onclick="this.classList.toggle('on');saveToggle(this)" role="switch"></div></div>
@@ -975,7 +1051,7 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
           <button class="olb" onclick="setLang('en')" lang="en">🇬🇧 English</button>
         </div>
       </div>
-      <div class="sec-cap mb12" style="margin-top:18px">אודות שומר</div>
+      <div class="sec-cap mb12" style="margin-top:18px">אודות שומר היער</div>
       <div class="set-grp">
         <div class="ai-row"><span class="ai-l">מוצר / Product</span><span class="ai-v" dir="ltr">Shomer Forest<span class="tm">™</span> (שומר היער)</span></div>
         <div class="ai-row"><span class="ai-l">גרסה</span><span class="ai-v">1.0.0</span></div>
@@ -986,8 +1062,8 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
       <div class="sec-cap mb12" style="margin-top:18px" id="datasrc-cap">נתונים ומקורות</div>
       <div class="set-grp" style="padding:13px 14px;">
         <p style="font-size:11.5px;color:var(--tx2);line-height:1.75" id="datasrc-txt">
-          סמני הערים על המפה הם <strong style="color:var(--g3)">סקירה סטטיסטית מצרפית</strong> — לא אירועים ספציפיים. נתונים אישיים (פינים) מגיעים אך ורק מדיווחי משתמשים ו-SOS חי.<br><br>
-          מקורות: הלשכה המרכזית לסטטיסטיקה (הלמ"ס) — סקר ביטחון אישי 2024; משטרת ישראל — נתונים פתוחים (data.gov.il); מרכז טאוב 2024.
+          סמני היערות על המפה הם <strong style="color:var(--g3)">סקירת אזור מצרפית</strong> — לא אירועים ספציפיים. פינים אישיים מגיעים אך ורק מדיווחי משתמשים ו-SOS חי.<br><br>
+          מקורות: קרן קימת לישראל (קק"ל); רשות הטבע והגנים; כבאות והצלה לישראל. מספרי חירום מסומנים "לאימות" טעונים אישור סופי.
         </p>
       </div>
       <div class="sec-cap mb12" style="margin-top:18px" id="reset-cap">בדיקה / נתוני דמו</div>
@@ -1009,7 +1085,7 @@ input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(224,168,
     <div class="sh-head"><span class="sh-ttl" id="prof-ttl">הפרופיל שלי</span><button class="sh-x" onclick="cl('sh-prof')" aria-label="סגור">✕</button></div>
     <div class="sh-body">
       <div class="prof-top">
-        <img class="p-logo" src="logo-192.png" alt="לוגו שומר" width="72" height="72">
+        <img class="p-logo" src="logo-192.png" alt="לוגו שומר היער" width="72" height="72">
         <div class="p-nm" id="profNm">שומר היער</div>
         <div class="p-rk" id="prof-rank">שומר מדרגה ב׳</div>
       </div>
@@ -1145,6 +1221,10 @@ let currentLang='he', L=LANGS.he;
 function T(k){return L[k]||LANGS.he[k]||k;}
 
 let sosActive=false, sosTimer=null;
+/* SOS state machine: 'idle' → 'countdown' (alarm on, NOT yet broadcast) → 'active' (broadcast+mapped).
+   sosActive stays true through countdown+active so shake/DMS guards (if(!sosActive)) keep working. */
+let sosPhase='idle', sosCdTimer=null, sosCdLeft=0, curSosId=null;
+let sosHoldConsumed=false, sosHoldTimer=null, sosHoldRAF=null;
 let alarmType='siren', alarmVol=1.0;
 let audioCtx=null, oscillators=[];
 let newUpd=0, repLock=false, menuOpen=false;
@@ -1169,8 +1249,17 @@ let SS={
   shake:{enabled:true,sensitivity:22},
   dms:{interval:5,active:false,deadline:0},
   settings:{radius:5,toggles:{}},
+  /* ── SOS anti-abuse / safety config (front-end sim — server must enforce for real) ── */
+  sos:{
+    countdown:10,        // cancel-window seconds before broadcast. Default 10; user may lower (5/7) for high-risk.
+    holdToArm:false,     // require press-&-hold ~2s on the SOS button to fire (anti pocket-dial).
+    maxPerDay:3,         // rate limit: max ACTIVE (broadcast) SOS per user per day. Server-enforced in real build.
+    dayKey:'',           // YYYY-M-D window key for the per-day counter (reset when the day rolls over).
+    activeToday:0,       // count of broadcast SOS in the current dayKey window.
+    trust:{real:0,accidental:0,test:0,falseAlarm:0}  // reputation sim — see trustScore(). Server is authoritative.
+  },
   reports:[],     // {id,type,desc,loc,lat,lng,photos:[thumbs],ts,anon}
-  sosHistory:[]   // {id,ts,lat,lng,trigger}
+  sosHistory:[]   // {id,ts,lat,lng,trigger,resolution,broadcast,rateLimited}
 };
 function deepMerge(base,o){
   const out=Array.isArray(base)?[]:{...base};
@@ -1238,7 +1327,7 @@ function applyStoredSettings(){
   const rs=document.getElementById('rad-slider');if(rs)rs.value=SS.settings.radius||5;
   setText('rad-v',String(SS.settings.radius||5));
   // Prefill onboarding fields if a returning user re-onboards after reset (no-op normally)
-  const pn=document.getElementById('ob-name');if(pn&&user.name&&user.name!=='שומר')pn.value=user.name;
+  const pn=document.getElementById('ob-name');if(pn&&user.name&&user.name!=='שומר היער'&&user.name!=='Forest Guardian')pn.value=user.name;
 }
 function reflectAlarmSelection(){
   [['#ob-alarms .ob-alarm','obPickAlarm'],['#alarm-list .ob-alarm','pickAlarm']].forEach(([sel])=>{
@@ -1378,6 +1467,21 @@ function renderSosHistory(){
     mid.appendChild(nm);mid.appendChild(d);
     const tg=document.createElement('span');tg.className='resp-st';tg.style.background='var(--rb)';tg.style.color='#FF7080';
     tg.textContent=ev.trigger==='shake'?(currentLang==='he'?'ניעור':'shake'):ev.trigger==='dms'?'DMS':(currentLang==='he'?'ידני':'manual');
+    // Resolution / broadcast status — kept in the user's PRIVATE log; accidental/test are
+    // still scrubbed from the public map + feed (see resolveAs).
+    const he2=currentLang==='he';
+    const rmap={real:he2?'אומת':'confirmed',accidental:he2?'בטעות':'accidental',test:he2?'בדיקה':'test'};
+    if(ev.resolution&&rmap[ev.resolution]){
+      const rs=document.createElement('span');rs.className='resp-st';rs.style.marginInlineStart='6px';
+      if(ev.resolution==='real'){rs.style.background='var(--grn-b)';rs.style.color='#40C880';}
+      else{rs.style.background='var(--n4)';rs.style.color='var(--tx2)';}
+      rs.textContent=rmap[ev.resolution];
+      mid.appendChild(rs);
+    }
+    if(ev.rateLimited){
+      const rl=document.createElement('span');rl.className='resp-st';rl.style.marginInlineStart='6px';rl.style.background='var(--amb-b)';rl.style.color='#E09030';
+      rl.textContent=he2?'הוגבל':'rate-limited';mid.appendChild(rl);
+    }
     row.appendChild(av);row.appendChild(mid);row.appendChild(tg);
     l.appendChild(row);
   });
@@ -1531,8 +1635,16 @@ function applyTranslations(){
   setText('dd-alarm',T('dd_alarm'));setText('dd-prof',T('dd_prof'));
   setText('dd-set',T('dd_set'));setText('dd-em',T('dd_em'));
   // SOS strip
-  const sst=document.getElementById('ss-t');if(sst)sst.textContent=T('ss_t');
-  const sscan=document.getElementById('ss-cancel');if(sscan)sscan.textContent=T('cancel');
+  const sst=document.getElementById('ss-t');if(sst&&sosPhase!=='active')sst.textContent=T('ss_t');
+  const sscl=document.getElementById('ss-cancel-lbl');if(sscl)sscl.textContent=currentLang==='he'?'אני בטוח/ה':"I'm safe";
+  // SOS safety section + countdown/resolution overlay labels (uses the `he` declared below)
+  refreshSosSafetyUI();
+  setText('rs-real',currentLang==='he'?'אמיתי — שמור על המפה':'Real — keep on map');
+  setText('rs-acc',currentLang==='he'?'בטעות — הסר':'Accidental — remove');
+  setText('rs-test',currentLang==='he'?'בדיקה — הסר':'Test — remove');
+  setText('sos-rs-sub',currentLang==='he'?'מה היה זה? נתון לבדיקות ובטעות יוסר מהמפה ולא ייראה לאחרים.'
+                         :'What was this? Accidental and test are removed from the map and never shown to others.');
+  setText('sos-rs-ttl',currentLang==='he'?'✓ ה-SOS הסתיים':'✓ SOS ended');
   // Sheet titles
   setText('upd-ttl',T('upd_ttl'));setText('rep-ttl',T('rep_ttl'));setText('dms-ttl',T('dms_ttl'));
   setText('set-ttl',T('set_ttl'));setText('prof-ttl',T('prof_ttl'));setText('em-ttl',T('em_ttl'));
@@ -1589,7 +1701,7 @@ function applyTranslations(){
   setText('datasrc-cap',he?'נתונים ומקורות':'Data & sources');
   {const dt=document.getElementById('datasrc-txt');if(dt)dt.innerHTML=he
     ?'סמני היערות על המפה הם <strong style="color:var(--g3)">סקירת אזור מצרפית</strong> — לא אירועים ספציפיים. פינים אישיים מגיעים אך ורק מדיווחי משתמשים ו-SOS חי.<br><br>מקורות: קרן קימת לישראל (קק"ל); רשות הטבע והגנים; כבאות והצלה לישראל. מספרי חירום מסומנים "לאימות" טעונים אישור סופי.'
-    :'Forest markers are an <strong style="color:var(--g3)">aggregate area overview</strong> — not specific incidents. Personal pins come only from user reports and live SOS.<br><br>Sources: KKL-JNF; Israel Nature & Parks Authority; Israel Fire & Rescue. Numbers marked “verify” need final confirmation.';}
+    :'Forest markers are an <strong style="color:var(--g3)">aggregate area overview</strong> — not specific incidents. Personal pins come only from user reports and live SOS.<br><br>Sources: KKL-JNF; Israel Nature & Parks Authority; Israel Fire & Rescue. Numbers marked "verify" need final confirmation.';}
   setText('myrep-cap',he?'הדיווחים שלי':'My reports');
   setText('soshist-cap',he?'היסטוריית SOS':'SOS history');
   setText('stat-reports-lbl',he?'דיווחים':'Reports');
@@ -1990,57 +2102,271 @@ function pickAlarm(el,type){
 }
 
 /* ═══════════════════════════════════
-   SOS
+   SOS  —  safety / anti-abuse state machine
+   ───────────────────────────────────
+   idle ──press──▶ countdown (alarm fires on THIS phone immediately; a cancel
+                              window runs; NOTHING is broadcast or mapped yet)
+        ┌─cancel within window──▶ idle   (FALSE ALARM: no pin, no feed, no broadcast,
+        │                                 no map history — "no trace". Dave's rule.)
+        └─window expires────────▶ active  (broadcast sim + pulsing map pin + feed card)
+   active ──"I'm safe"──▶ resolution prompt (Real / Accidental / Test)
+                          · Real      → stays on the map (confirmed event).
+                          · Accidental/Test → pin + feed card REMOVED, never shown to others.
+
+   FRONT-END SIMULATION ONLY. A real deployment MUST enforce server-side:
+   broadcast/fan-out, the per-day rate limit, and the reputation/trust score.
+   See README.md → "What a real backend MUST enforce" and TEST_AUDIT.md.
 ═══════════════════════════════════ */
+
+/* Per-day rate-limit window. Client-side ONLY — trivially bypassable (clear storage);
+   the real limit MUST live on the server keyed to the account/device. */
+function sosTodayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function sosRollDay(){const k=sosTodayKey();if(SS.sos.dayKey!==k){SS.sos.dayKey=k;SS.sos.activeToday=0;saveStore();}}
+function sosRemainingToday(){sosRollDay();return Math.max(0,(SS.sos.maxPerDay||3)-(SS.sos.activeToday||0));}
+
+/* Reputation STUB — a real backend computes this authoritatively from cross-device,
+   tamper-proof history. Here it is a transparent local heuristic for UX/demo only.
+   Confirmed-real events build trust; accidental/test/false-alarm-cancels erode it.
+   A real system would also throttle, require hold-to-arm, or queue manual review for
+   repeat false-alarmers — see README. */
+function trustScore(){
+  const t=(SS.sos&&SS.sos.trust)||{real:0,accidental:0,test:0,falseAlarm:0};
+  const good=t.real||0, bad=(t.accidental||0)+(t.test||0)+(t.falseAlarm||0);
+  return Math.max(0,Math.min(100,70+good*10-bad*8));
+}
+function trustLabel(){
+  const s=trustScore(),he=currentLang==='he';
+  if(s>=75)return he?'גבוה':'High';
+  if(s>=45)return he?'תקין':'OK';
+  return he?'נמוך — שימוש לרעה':'Low — flagged';
+}
+
+/* Public entry — manual button taps route through onSosTap(); shake / DMS / sim call
+   triggerSOS() directly (automatic triggers bypass hold-to-arm by design, but still
+   get the cancel countdown so an accidental auto-fire leaves no trace). */
 function triggerSOS(trigger){
-  if(sosActive){cancelSOS();return;}
-  sosActive=true;
-  // Log to persistent SOS history.
-  try{
-    SS.sosHistory.push({id:'s'+Date.now(),ts:Date.now(),lat:userLat,lng:userLng,trigger:trigger||'manual'});
-    if(SS.sosHistory.length>50)SS.sosHistory=SS.sosHistory.slice(-50);
-    saveStore();renderSosHistory();updateProfileStats();
-  }catch(e){}
+  if(sosPhase==='countdown'){cancelCountdown('repress');return;}
+  if(sosPhase==='active'){resolveSOS();return;}
+  beginSOS(trigger||'manual');
+}
+
+/* PHASE 1 — alarm immediately, then the cancel countdown. No broadcast yet. */
+function beginSOS(trigger){
+  if(sosPhase!=='idle')return;
+  sosPhase='countdown'; sosActive=true; curSosTrigger=trigger||'manual';
   const btn=document.getElementById('sos-btn');
   if(btn){btn.classList.add('active');btn.setAttribute('aria-pressed','true');}
+  playAlarm(60000);                       // loud alarm on the user's OWN phone, right now
+  startCountdown();
+}
+let curSosTrigger='manual';
+function startCountdown(){
+  sosCdLeft=Math.max(5,Math.min(15,SS.sos.countdown||10));
+  const ov=document.getElementById('sos-cd');
+  if(ov){ov.classList.add('on');ov.setAttribute('aria-hidden','false');}
+  renderCountdown();
+  clearInterval(sosCdTimer);
+  sosCdTimer=setInterval(()=>{
+    sosCdLeft--;
+    if(sosCdLeft<=0){clearInterval(sosCdTimer);activateSOS();return;}
+    renderCountdown();
+  },1000);
+}
+function renderCountdown(){
+  setText('sos-cd-num',String(sosCdLeft));
+  const he=currentLang==='he';
+  setText('sos-cd-ttl',he?'🚨 שולח SOS…':'🚨 Sending SOS…');
+  setText('sos-cd-sub',he?'האזעקה פועלת. שידור לשומרים בקרבתך בעוד…'
+                         :'Alarm is sounding. Broadcasting to nearby guardians in…');
+  setText('sos-cd-cancel',he?'אני בטוח/ה — בטל':"I'm safe — Cancel");
+  setText('sos-cd-hint',he?'ביטול עכשיו = אזעקת שווא. שום דבר לא ישודר ולא יופיע במפה.'
+                          :'Cancel now = false alarm. Nothing is broadcast and nothing appears on the map.');
+  // tighten the ring as time runs out
+  const ring=document.getElementById('sos-cd-ring');
+  const full=Math.max(5,Math.min(15,SS.sos.countdown||10));
+  if(ring)ring.style.background=`conic-gradient(var(--r4) ${(sosCdLeft/full)*360}deg, rgba(255,255,255,.10) 0deg)`;
+}
+
+/* CANCEL within the window — FALSE ALARM. No pin, no feed card, no broadcast, no
+   mapped history. We only bump a private false-alarm counter for the trust sim. */
+function cancelCountdown(){
+  if(sosPhase!=='countdown')return;
+  clearInterval(sosCdTimer); stopAlarm();
+  sosPhase='idle'; sosActive=false;
+  const ov=document.getElementById('sos-cd');
+  if(ov){ov.classList.remove('on');ov.setAttribute('aria-hidden','true');}
+  const btn=document.getElementById('sos-btn');
+  if(btn){btn.classList.remove('active');btn.setAttribute('aria-pressed','false');}
+  try{SS.sos.trust.falseAlarm=(SS.sos.trust.falseAlarm||0)+1;saveStore();refreshSosSafetyUI();}catch(e){}
+  toast(currentLang==='he'?'בוטל — אזעקת שווא. שום דבר לא שותף ולא מופיע במפה.'
+                          :'Cancelled — false alarm. Nothing shared, nothing on the map.','');
+}
+/* Back-compat alias (older callers / tests). */
+function cancelSOS(){ if(sosPhase==='countdown')cancelCountdown(); else if(sosPhase==='active')resolveSOS(); }
+
+/* PHASE 2 — the countdown expired → this is a REAL active event: broadcast sim + map. */
+function activateSOS(){
+  const ov=document.getElementById('sos-cd');
+  if(ov){ov.classList.remove('on');ov.setAttribute('aria-hidden','true');}
+  sosPhase='active';
+  const he=currentLang==='he';
+  sosRollDay();
+  const overLimit=sosRemainingToday()<=0;
+  curSosId='s'+Date.now();
+  // Log to persistent history. broadcast=false when rate-limited (alarm still helps the
+  // user locally, but nothing is shared/mapped — exactly what a server would refuse to fan out).
+  try{
+    SS.sosHistory.push({id:curSosId,ts:Date.now(),lat:userLat,lng:userLng,
+      trigger:curSosTrigger,resolution:'pending',broadcast:!overLimit,rateLimited:overLimit});
+    if(SS.sosHistory.length>50)SS.sosHistory=SS.sosHistory.slice(-50);
+    if(!overLimit)SS.sos.activeToday=(SS.sos.activeToday||0)+1;
+    saveStore();renderSosHistory();updateProfileStats();refreshSosSafetyUI();
+  }catch(e){}
+  // Strip + lock-screen push
   document.getElementById('sos-strip').classList.add('on');
-  // Alarm — 60s continuous
-  playAlarm(60000);
-  // Push notification — visible on lock screen
-  pushNotify('🚨 שומר היער — SOS שלחת',currentLang==='he'?'אזעקה פועלת. עזרה בדרך.':'Alarm active. Help is coming.','sos-active');
-  // Try auto-dial (opens dial pad — cannot force call without native)
-  setTimeout(()=>{
-    if(window.confirm){
-      // In real PWA show confirm, in native would auto-call
-      const call=window.confirm(currentLang==='he'?'לחייג לכבאות 102 אוטומטית?\n(לחץ אישור לחיוג)':'Auto-call Fire 102?\n(Press OK to dial)');
-      if(call) window.location.href='tel:102';
-    }
-  },2000);
-  // Map pin
+  pushNotify('🚨 שומר היער — SOS',he?'אזעקה פועלת. עזרה בדרך.':'Alarm active. Help is coming.','sos-active');
+  if(overLimit){
+    // RATE-LIMITED: personal alarm keeps sounding, but NO broadcast and NO map pin.
+    setText('ss-t',he?'🚨 אזעקה פועלת — שידור מושהה (הגבלה יומית)':'🚨 Alarm active — broadcast paused (daily limit)');
+    setText('ss-s',he?'הגעת למכסת ה-SOS היומית':'Daily active-SOS limit reached');
+    toast(he?`הגעת ל-${SS.sos.maxPerDay} SOS היום. האזעקה פועלת בטלפון שלך, אך השידור מושהה (מניעת שימוש לרעה).`
+            :`Reached your ${SS.sos.maxPerDay} active-SOS limit today. Alarm still sounds on your phone, but broadcast is paused (anti-abuse).`,'amb');
+    return;
+  }
+  // Within limit → broadcast simulation + pulsing map pin + feed card.
+  setText('ss-t',he?'🚨 SOS פעיל — אזעקה פועלת · מיקומך שותף':'🚨 SOS active — alarm firing · location shared');
+  setText('ss-s',he?'ממתין לתגובה...':'Waiting for response...');
   addSOSPin();
-  // Update card
   injectSOSCard();
-  toast(currentLang==='he'?'🚨 SOS נשלח — אזעקה פועלת!':'🚨 SOS sent — alarm active!','red');
+  toast(he?'🚨 SOS שודר — שומרים בקרבתך עודכנו (סימולציה)':'🚨 SOS broadcast — nearby guardians notified (simulated)','red');
+  // Auto-dial prompt (opens dialer; a native app could place the call directly).
+  setTimeout(()=>{
+    if(sosPhase!=='active')return;
+    const call=window.confirm(he?'לחייג לכבאות 102 אוטומטית?\n(לחץ אישור לחיוג)':'Auto-call Fire 102?\n(Press OK to dial)');
+    if(call) window.location.href='tel:102';
+  },2000);
   let r=0;
+  clearInterval(sosTimer);
   sosTimer=setInterval(()=>{
     r++;
     const ss=document.getElementById('ss-s');
-    if(ss) ss.textContent=`${r} ${currentLang==='he'?'שומר'+(r>1?'ים':'')+' בדרך':'guardian'+(r>1?'s':'')+' responding'}`;
-    if(r>=3){
-      toast(currentLang==='he'?'3 שומרים בדרך — הישאר במקומך!':'3 guardians responding — stay put!','grn');
-      clearInterval(sosTimer);
-    }
+    if(ss) ss.textContent=`${r} ${he?'שומר'+(r>1?'ים':'')+' בדרך':'guardian'+(r>1?'s':'')+' responding'}`;
+    if(r>=3){toast(he?'3 שומרים בדרך — הישאר במקומך!':'3 guardians responding — stay put!','grn');clearInterval(sosTimer);}
   },5000);
-  setTimeout(()=>openUpdates(),800);
+  setTimeout(()=>{if(sosPhase==='active')openUpdates();},800);
 }
-function cancelSOS(){
-  if(!sosActive) return;
-  sosActive=false; clearInterval(sosTimer); stopAlarm();
+
+/* End an ACTIVE event → ask whether it was Real / Accidental / Test. */
+function resolveSOS(){
+  if(sosPhase!=='active')return;
+  clearInterval(sosTimer); stopAlarm();
+  sosPhase='idle'; sosActive=false;
   const btn=document.getElementById('sos-btn');
   if(btn){btn.classList.remove('active');btn.setAttribute('aria-pressed','false');}
   document.getElementById('sos-strip').classList.remove('on');
-  removeSOSPin();
-  toast(currentLang==='he'?'SOS בוטל — שומרים עודכנו':'SOS cancelled','');
+  const ov=document.getElementById('sos-resolve');
+  if(ov){ov.classList.add('on');ov.setAttribute('aria-hidden','false');}
+}
+/* Resolution choice. accidental/test are scrubbed from the map + feed and never shown
+   to others; only confirmed-real events remain mapped. */
+function resolveAs(kind){
+  const he=currentLang==='he';
+  const ev=SS.sosHistory.find(e=>e.id===curSosId);
+  if(ev)ev.resolution=kind;
+  try{if(SS.sos.trust[kind]!=null)SS.sos.trust[kind]++;}catch(e){}
+  if(kind==='real'){
+    toast(he?'✓ אומת כאירוע אמיתי — נשאר על המפה':'✓ Confirmed real — kept on the map','grn');
+    // pin + feed card stay as a confirmed event.
+  } else {
+    removeSOSPin();
+    removeSOSCard(curSosId);
+    toast(kind==='test'
+      ?(he?'בדיקה — הוסר מהמפה, לא שותף עם אחרים':'Test — removed from the map, not shared with others')
+      :(he?'דיווח בטעות — הוסר מהמפה, לא שותף עם אחרים':'Accidental — removed from the map, not shared with others'),'');
+  }
+  saveStore();renderSosHistory();updateProfileStats();refreshSosSafetyUI();
+  const ov=document.getElementById('sos-resolve');
+  if(ov){ov.classList.remove('on');ov.setAttribute('aria-hidden','true');}
+  curSosId=null;
+}
+
+/* ── SOS button interaction: tap vs. hold-to-arm (anti pocket-dial) ── */
+const SOS_HOLD_MS=2000;
+function onSosTap(){
+  // A hold that already fired consumes the trailing click.
+  if(sosHoldConsumed){sosHoldConsumed=false;return;}
+  if(sosPhase==='countdown'){cancelCountdown();return;}
+  if(sosPhase==='active'){resolveSOS();return;}
+  // idle: if hold-to-arm is on, a plain tap must NOT fire — guide the user to hold.
+  if(SS.sos.holdToArm){
+    toast(currentLang==='he'?'החזק/י לחוץ 2 שניות לשליחת SOS':'Press & hold 2s to send SOS','amb');
+    return;
+  }
+  beginSOS('manual');
+}
+function sosHoldStart(){
+  if(!SS.sos.holdToArm||sosPhase!=='idle')return;
+  const ring=document.getElementById('sos-hold-ring');
+  const t0=Date.now();
+  if(ring)ring.classList.add('on');
+  cancelAnimationFrame(sosHoldRAF);
+  const step=()=>{
+    const p=Math.min(1,(Date.now()-t0)/SOS_HOLD_MS);
+    if(ring)ring.style.background=`conic-gradient(var(--g3) ${p*360}deg, transparent 0deg)`;
+    if(p>=1){sosHoldEnd(false);sosHoldConsumed=true;beginSOS('manual');return;}
+    sosHoldRAF=requestAnimationFrame(step);
+  };
+  sosHoldRAF=requestAnimationFrame(step);
+}
+function sosHoldEnd(reset){
+  cancelAnimationFrame(sosHoldRAF);
+  const ring=document.getElementById('sos-hold-ring');
+  if(ring){ring.classList.remove('on');ring.style.background='conic-gradient(var(--g3) 0deg, transparent 0deg)';}
+  // reset=true means the user let go early (no fire); onSosTap's hint handles messaging.
+}
+
+/* Keep the SOS-safety settings readouts in sync with state. */
+function refreshSosSafetyUI(){
+  const he=currentLang==='he';
+  // Static labels (kept here so they localize without touching the big setLang switch).
+  setText('sos-safety-cap',he?'בטיחות SOS':'SOS safety');
+  setText('sos-cd-lbl',he?'חלון ביטול לפני שידור':'Cancel window before broadcast');
+  setText('sos-cd-sub',he?'זמן לבטל אזעקת שווא לפני שה-SOS משודר. קצר יותר = למצבי סיכון גבוה.'
+                         :'Time to cancel a false alarm before the SOS broadcasts. Shorter = high-risk situations.');
+  setText('hold-arm-lbl',he?'החזק-לחימוש':'Hold-to-arm');
+  setText('hold-arm-sub',he?'לחיצה ארוכה 2 שניות — מונע חיוג בכיס':'Press & hold 2s — prevents pocket-dials');
+  setText('sos-rate-lbl',he?'SOS פעילים היום (הגבלה)':'Active SOS today (limit)');
+  setText('sos-trust-lbl',he?'ציון אמון (סימולציה)':'Trust score (simulated)');
+  setText('sos-safety-note-h',he?'הערת כנות:':'Honesty note:');
+  setText('sos-safety-note-b',he?'שידור, הגבלת קצב ואמון מדומים מקומית בלבד באפליקציה זו (ללא שרת). מערכת אמיתית חייבת לאכוף אותם בצד-שרת.'
+                                :'Broadcast, rate-limit and trust are simulated locally in this app (no server). A real system must enforce them server-side.');
+  document.querySelectorAll('#sos-cd-presets .dms-iv-l').forEach(l=>l.textContent=he?'שניות':'sec');
+  setText('sos-cd-val',(SS.sos.countdown||10)+'s');
+  const ht=document.getElementById('hold-arm-tog');if(ht)ht.classList.toggle('on',!!SS.sos.holdToArm);
+  sosRollDay();
+  setText('sos-rate-val',`${SS.sos.activeToday||0}/${SS.sos.maxPerDay||3}`);
+  setText('sos-trust-val',`${trustScore()} · ${trustLabel()}`);
+  const tr=SS.sos.trust||{};
+  setText('sos-trust-sub',he
+    ?`אמיתי ${tr.real||0} · בטעות ${tr.accidental||0} · בדיקה ${tr.test||0} · שווא ${tr.falseAlarm||0}`
+    :`real ${tr.real||0} · accidental ${tr.accidental||0} · test ${tr.test||0} · false ${tr.falseAlarm||0}`);
+  // reflect countdown preset selection
+  document.querySelectorAll('#sos-cd-presets .dms-iv').forEach(d=>{
+    d.classList.toggle('sel',Number(d.getAttribute('data-sec'))===(SS.sos.countdown||10));
+  });
+}
+function setSosCountdown(el,sec){
+  SS.sos.countdown=Math.max(5,Math.min(15,sec));saveStore();
+  refreshSosSafetyUI();
+  toast(currentLang==='he'?`חלון ביטול: ${SS.sos.countdown} שניות`:`Cancel window: ${SS.sos.countdown}s`,'grn');
+}
+function toggleHoldArm(el){
+  el.classList.toggle('on');
+  SS.sos.holdToArm=el.classList.contains('on');saveStore();
+  toast(SS.sos.holdToArm
+    ?(currentLang==='he'?'🔒 החזק-לחימוש פעיל — מונע חיוג בכיס':'🔒 Hold-to-arm on — prevents pocket-dials')
+    :(currentLang==='he'?'החזק-לחימוש כבוי — הקשה אחת שולחת':'Hold-to-arm off — single tap sends'),
+    SS.sos.holdToArm?'grn':'');
 }
 function addSOSPin(){
   if(!MAP)return;
@@ -2123,6 +2449,9 @@ function initMap(){
   window.L.tileLayer(TILE_URL,{maxZoom:19,subdomains:'abc',
     attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}).addTo(MAP);
   buildStatMarkers();
+  // Leaflet loads deferred, so initMap can finish AFTER restorePersistedData() ran with
+  // MAP still null (pins skipped). Re-add any persisted report pins now that MAP exists.
+  try{ SS.reports.forEach(rep=>{ if(!mapLayers.reports[rep.id]) addReportPin(rep); }); }catch(e){}
   // The container may have been laid out while hidden — recalc once visible.
   [120,400,900].forEach(ms=>setTimeout(()=>{if(MAP)MAP.invalidateSize(false);},ms));
   if(userLat!=null&&userLng!=null){moveUserDot(userLat,userLng);MAP.setView([userLat,userLng],13);}
@@ -2179,6 +2508,13 @@ window.addEventListener('DOMContentLoaded',()=>{
   // Textarea char count
   const ta=document.getElementById('rep-ta');
   if(ta)ta.addEventListener('input',()=>{document.getElementById('char-c').textContent=ta.value.length+' / 1000';});
+  // Hold-to-arm: press & hold the SOS button ~2s to fire (only when enabled in Settings).
+  const sb=document.getElementById('sos-btn');
+  if(sb){
+    sb.addEventListener('pointerdown',e=>{if(SS.sos.holdToArm&&sosPhase==='idle'){e.preventDefault();sosHoldStart();}});
+    ['pointerup','pointerleave','pointercancel'].forEach(ev=>sb.addEventListener(ev,()=>sosHoldEnd(true)));
+  }
+  refreshSosSafetyUI();
 });
 window.addEventListener('resize',()=>{if(MAP)MAP.invalidateSize(false);});
 
@@ -2280,10 +2616,17 @@ function buildInitialUpdates(){
     l.appendChild(div);
   });
 }
+function removeSOSCard(id){
+  if(!id)return;
+  const l=document.getElementById('upd-list');if(!l)return;
+  const card=l.querySelector(`[data-sos-id="${id}"]`);
+  if(card)card.remove();
+}
 function injectSOSCard(){
   const l=document.getElementById('upd-list');
   const div=document.createElement('div');
   div.className='ucard t-sos';
+  if(curSosId)div.dataset.sosId=curSosId;
   div.setAttribute('role','listitem');
   div.setAttribute('tabindex','0');
   const inner=document.createElement('div');inner.className='uc-in';
